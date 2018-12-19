@@ -1,12 +1,12 @@
 package com.main.error;
 
 /**
- * @author LX
+ * @author long
  * @date 2018/12/14 16:03
  *
  * 包装类异常处理器
  */
-public class MainException extends Exception implements CommonError{
+public class FailException extends Exception implements CommonError{
 
     private CommonError commonError;
 
@@ -14,7 +14,7 @@ public class MainException extends Exception implements CommonError{
      * 直接接收传参用于够着业务异常
      * @param commonError
      */
-    public MainException(CommonError commonError){
+    public FailException(CommonError commonError){
         super();
         this.commonError = commonError;
     }
@@ -23,7 +23,7 @@ public class MainException extends Exception implements CommonError{
      * 接收自定义errMsg的方式构造业务异常
      * @return
      */
-    public MainException(CommonError commonError, String errMsg){
+    public FailException(CommonError commonError, String errMsg){
         super();
         this.commonError = commonError;
         this.commonError.setErrMsg(errMsg);

@@ -1,7 +1,7 @@
 package com.main.error;
 
 /**
- * @author LX
+ * @author long
  * @date 2018/12/14 15:57
  */
 public enum EmMainError implements CommonError {
@@ -12,20 +12,15 @@ public enum EmMainError implements CommonError {
     SUCCESS(0, "success"),
 
     /**
-     * 异常
+     * 失败
      */
-    ERROR(-1, "error msg"),
+    FAIL(-1, "fail msg"),
 
     /**
-     * 参数不合法
+     * 未知错误
      */
-    KEY_ERROR(100001, "参数不合法"),
-    UNKNOW_ERROR(100002, "未知错误"),
-
-    /**
-     * 用户不存在
-     */
-    USER_NOT_EXST(200001, "用户不存在");
+    ERROR_UNKNOWN(100000, "未知错误"),
+    KEY_ERROR(100002, "参数不合法");
 
     private int errCode;
     private String errMsg;

@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author LX
+ * @author long
  * @date 2018/12/14 16:28
  * 全局统一异常处理
  */
@@ -23,24 +23,24 @@ public class ExceptionHandler implements HandlerExceptionResolver {
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object o, Exception ex) {
 
+        MainReturn result = new MainReturn();
         Map<String, Object> responseData = new HashMap<>();
-        if (ex instanceof MainException) {
-            MainException businessException = (MainException) ex;
-            responseData.put("errCode", businessException.getErrCode());
-            responseData.put("errMsg", businessException.getErrMsg());
+        if (ex instanceof FailException) {
+            // 业务异常
+            FailException failException = (FailException) ex;
+            result = MainReturn.fail(responseData, failException.getErrCode(), failException.getErrMsg());
         } else {
-            responseData.put("errCode", EmMainError.UNKNOW_ERROR.getErrCode());
-            responseData.put("errMsg", EmMainError.UNKNOW_ERROR.getErrMsg());
+            // 程序异常
             responseData.put("stackTrace", ex);
+            result = MainReturn.error(responseData, EmMainError.ERROR_UNKNOWN.getErrCode(), EmMainError.ERROR_UNKNOWN.getErrMsg());
+            // 记录日志
         }
 
         try {
             ObjectMapper mapper = new ObjectMapper();
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter writer = response.getWriter();
-
-            MainReturn result = MainReturn.create(responseData, "fail");
-            String json =  mapper.writeValueAsString(result);
+            String json = mapper.writeValueAsString(result);
 
             writer.write(json);
             writer.flush();

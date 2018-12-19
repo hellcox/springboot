@@ -1,7 +1,7 @@
 package com.main.error;
 
 /**
- * @author LX
+ * @author long
  * @date 2018/12/14 15:55
  */
 public interface CommonError {
