@@ -31,7 +31,8 @@ public class ExceptionHandler implements HandlerExceptionResolver {
             result = MainReturn.fail(responseData, failException.getErrCode(), failException.getErrMsg());
         } else {
             // 程序异常
-            responseData.put("stackTrace", ex);
+            responseData.put("message", ex.getMessage());
+            responseData.put("localizedMessage", ex.getLocalizedMessage());
             result = MainReturn.error(responseData, EmMainError.ERROR_UNKNOWN.getErrCode(), EmMainError.ERROR_UNKNOWN.getErrMsg());
             // 记录日志
         }

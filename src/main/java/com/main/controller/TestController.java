@@ -1,6 +1,7 @@
 package com.main.controller;
 
 import com.main.common.MainReturn;
+import com.main.dao.model.UserDO;
 import com.main.error.EmMainError;
 import com.main.error.FailException;
 import com.main.service.TestService;
@@ -33,7 +34,7 @@ public class TestController {
 
     @RequestMapping("/test")
     public MainReturn test() {
-        return MainReturn.success("111");
+        return MainReturn.success();
     }
 
     @RequestMapping("/json")
@@ -72,10 +73,16 @@ public class TestController {
         return MainReturn.success(flag,"service");
     }
 
-    @RequestMapping("/tran")
-    public MainReturn tran(){
+    @RequestMapping("/shiwu")
+    public MainReturn tran() throws FailException {
         testService.transactional();
-        return MainReturn.success("service");
+        return MainReturn.success("事物");
+    }
+
+    @RequestMapping("/getuser")
+    public MainReturn getUser(@RequestParam(name = "id") Integer id){
+        UserDO userDO = testService.getUser(id);
+        return MainReturn.success(userDO,"查询用户");
     }
 
 }

@@ -1,5 +1,7 @@
 package com.main.common;
 
+import java.util.HashMap;
+
 /**
  * @author long
  * @date 2018/12/14 15:42
@@ -8,6 +10,10 @@ public class MainReturn {
     private Integer code;
     private String msg;
     private Object data;
+
+    public static MainReturn success() {
+        return MainReturn.create(new HashMap<>(), 0, "success");
+    }
 
     public static MainReturn success(Object result) {
         return MainReturn.create(result, 0, "success");

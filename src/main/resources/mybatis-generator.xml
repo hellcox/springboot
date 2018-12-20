@@ -16,9 +16,12 @@
 
         <!--链接数据库-->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/miaosha"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/miaosha?useSSL=false"
                         userId="root"
                         password="root">
+
+            <!--设置为 true 可以获取 tables 信息, 解决生成文件缺少 xxxByPrimaryKey 的问题 -->
+            <property name="useInformationSchema" value="true"/>
         </jdbcConnection>
 
         <javaTypeResolver>
@@ -42,15 +45,15 @@
 
         <!--生成对应表及类名-->
 
-        <!--<table tableName="user_info" domainObjectName="UserDO"-->
-               <!--enableSelectByExample="false" enableDeleteByExample="false"-->
-               <!--enableCountByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false">-->
-        <!--</table>-->
-
-        <table tableName="user_account" domainObjectName="UserAccountDO"
+        <table tableName="user_info" domainObjectName="UserDO"
                enableSelectByExample="false" enableDeleteByExample="false"
                enableCountByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false">
         </table>
+
+        <!--<table tableName="user_account" domainObjectName="UserAccountDO"-->
+               <!--enableSelectByExample="false" enableDeleteByExample="false"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
 
     </context>
 </generatorConfiguration>
