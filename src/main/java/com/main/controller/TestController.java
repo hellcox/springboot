@@ -1,12 +1,12 @@
 package com.main.controller;
 
 import com.main.common.MainReturn;
-import com.main.dao.model.UserDO;
+import com.main.dao.dataobject.UserDO;
 import com.main.error.EmMainError;
 import com.main.error.FailException;
 import com.main.service.TestService;
+import com.main.service.bo.UserBO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -80,9 +80,9 @@ public class TestController {
     }
 
     @RequestMapping("/getuser")
-    public MainReturn getUser(@RequestParam(name = "id") Integer id){
-        UserDO userDO = testService.getUser(id);
-        return MainReturn.success(userDO,"查询用户");
+    public MainReturn getUser(@RequestParam(name = "id") Integer id) throws FailException {
+        UserBO userBO = testService.getUser(id);
+        return MainReturn.success(userBO,"查询用户");
     }
 
 }

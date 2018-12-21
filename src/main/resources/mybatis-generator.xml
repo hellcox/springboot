@@ -29,7 +29,7 @@
         </javaTypeResolver>
 
         <!--DataObject 存放位置-->
-        <javaModelGenerator targetPackage="com.main.dao.model" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.main.dao.dataobject" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaModelGenerator>
 
@@ -45,15 +45,15 @@
 
         <!--生成对应表及类名-->
 
-        <table tableName="user_info" domainObjectName="UserDO"
-               enableSelectByExample="false" enableDeleteByExample="false"
-               enableCountByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false">
-        </table>
-
-        <!--<table tableName="user_account" domainObjectName="UserAccountDO"-->
+        <!--<table tableName="user_info" domainObjectName="UserDO"-->
                <!--enableSelectByExample="false" enableDeleteByExample="false"-->
                <!--enableCountByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false">-->
         <!--</table>-->
+
+        <table tableName="user_account" domainObjectName="UserAccountDO" mapperName="UserAccountMapper"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false">
+        </table>
 
     </context>
 </generatorConfiguration>

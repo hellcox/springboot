@@ -1,7 +1,8 @@
 package com.main.service;
 
-import com.main.dao.model.UserDO;
+import com.main.dao.dataobject.UserDO;
 import com.main.error.FailException;
+import com.main.service.bo.UserBO;
 
 /**
  * @author long
@@ -26,5 +27,5 @@ public interface TestService {
      * @return
      * @param id
      */
-    UserDO getUser(Integer id);
+    UserBO getUser(Integer id) throws FailException;
 }
