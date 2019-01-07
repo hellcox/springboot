@@ -4,10 +4,10 @@ import com.main.dao.UserAccountMapper;
 import com.main.dao.UserMapper;
 import com.main.dao.dataobject.UserAccountDO;
 import com.main.dao.dataobject.UserDO;
-import com.main.error.EmMainError;
+import com.main.error.EmError;
 import com.main.error.FailException;
 import com.main.service.TestService;
-import com.main.service.bo.UserBO;
+import com.main.service.model.UserModel;
 import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class TestServiceImpl implements TestService {
 
         //int a = 1/0;
         if (true) {
-            throw new FailException(EmMainError.FAIL);
+            throw new FailException(EmError.FAIL);
         }
 
         UserDO userDO2 = new UserDO();
@@ -55,31 +55,35 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public UserBO getUser(Integer id) throws FailException {
+    public UserModel getUser(Integer id) throws FailException {
         UserDO userDO = userMapper.selectByPrimaryKey(id);
         if (userDO == null) {
-            throw new FailException(EmMainError.FAIL, "用户不存在");
+            throw new FailException(EmError.FAIL, "用户不存在");
         }
         UserAccountDO userAccountDO = userAccountMapper.selectByUserId(userDO.getId());
-        UserBO userBO = this.bean(userDO, userAccountDO);
 
-        return userBO;
+        return this.convertFromDO(userDO, userAccountDO);
     }
 
-    private UserBO bean(UserDO userDO, UserAccountDO userAccountDO) {
+    @Override
+    public void sqlError() {
+        userMapper.sqlError();
+    }
+
+    private UserModel convertFromDO(UserDO userDO, UserAccountDO userAccountDO) {
         if (userDO == null) {
             return null;
         }
-        UserBO userBO = new UserBO();
-        BeanUtils.copyProperties(userDO, userBO);
-        //userBO.setAddDate(new DateTime(userDO.getAddDate()));
+        UserModel userModel = new UserModel();
+        BeanUtils.copyProperties(userDO, userModel);
+        userModel.setGmtCreate(new DateTime(userDO.getGmtCreate()));
         if (userAccountDO != null) {
-            userBO.setEmail(userAccountDO.getEmail());
-            userBO.setMobile(userAccountDO.getMobile());
-            userBO.setLoginName(userAccountDO.getLoginName());
-            userBO.setPassword(userAccountDO.getPassword());
+            userModel.setEmail(userAccountDO.getEmail());
+            userModel.setMobile(userAccountDO.getMobile());
+            userModel.setLoginName(userAccountDO.getLoginName());
+            userModel.setPassword(userAccountDO.getPassword());
         }
 
-        return userBO;
+        return userModel;
     }
 }

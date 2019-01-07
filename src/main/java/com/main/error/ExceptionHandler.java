@@ -2,6 +2,7 @@ package com.main.error;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.common.MainReturn;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +21,8 @@ import java.util.Map;
  */
 @Component
 public class ExceptionHandler implements HandlerExceptionResolver {
+
+    private Logger log = Logger.getLogger(ExceptionHandler.class);
 
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object o, Exception ex) {
@@ -31,10 +35,12 @@ public class ExceptionHandler implements HandlerExceptionResolver {
             result = MainReturn.fail(responseData, failException.getErrCode(), failException.getErrMsg());
         } else {
             // 程序异常
-            responseData.put("message", ex.getMessage());
-            responseData.put("localizedMessage", ex.getLocalizedMessage());
-            result = MainReturn.error(responseData, EmMainError.ERROR_UNKNOWN.getErrCode(), EmMainError.ERROR_UNKNOWN.getErrMsg());
+            String trance = getStackTrace(ex);
+            responseData.put("msg", ex.toString());
+            responseData.put("trace", trance.replaceAll("<","[").replaceAll(">","]"));
+            result = MainReturn.error(responseData, EmError.ERROR_UNKNOWN.getErrCode(), EmError.ERROR_UNKNOWN.getErrMsg());
             // 记录日志
+            log.error(trance);
         }
 
         try {
@@ -48,6 +54,17 @@ public class ExceptionHandler implements HandlerExceptionResolver {
             return null;
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    private static String getStackTrace(Throwable throwable) {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        try {
+            throwable.printStackTrace(pw);
+            return sw.toString();
+        } finally {
+            pw.close();
         }
     }
 }

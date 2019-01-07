@@ -1,15 +1,14 @@
-package com.main.service.bo;
+package com.main.service.model;
 
 import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * @author long
  * @date 2018/12/21 13:36
  */
-public class UserBO {
+public class UserModel {
 
     private Integer id;
 
@@ -21,7 +20,7 @@ public class UserBO {
 
     private BigDecimal money;
 
-    private DateTime addDate;
+    private DateTime gmtCreate;
 
     private String password;
 
@@ -30,22 +29,6 @@ public class UserBO {
     private String email;
 
     private String loginName;
-
-    @Override
-    public String toString() {
-        return "UserBO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", sex=" + sex +
-                ", money=" + money +
-                ", addDate=" + addDate +
-                ", password='" + password + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", email='" + email + '\'' +
-                ", loginName='" + loginName + '\'' +
-                '}';
-    }
 
     public String getMobile() {
         return mobile;
@@ -111,12 +94,28 @@ public class UserBO {
         this.money = money;
     }
 
-    public DateTime getAddDate() {
-        return addDate;
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", sex=" + sex +
+                ", money=" + money +
+                ", gmtCreate=" + gmtCreate +
+                ", password='" + password + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", email='" + email + '\'' +
+                ", loginName='" + loginName + '\'' +
+                '}';
     }
 
-    public void setAddDate(DateTime addDate) {
-        this.addDate = addDate;
+    public DateTime getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(DateTime gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 
     public String getPassword() {

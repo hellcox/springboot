@@ -1,8 +1,7 @@
 package com.main.service;
 
-import com.main.dao.dataobject.UserDO;
 import com.main.error.FailException;
-import com.main.service.bo.UserBO;
+import com.main.service.model.UserModel;
 
 /**
  * @author long
@@ -19,13 +18,20 @@ public interface TestService {
 
     /**
      * 事物处理
+     * @throws FailException
      */
     void transactional() throws FailException;
 
     /**
-     * 查询用户
-     * @return
+     * 通过用户ID查询用户
      * @param id
+     * @return
+     * @throws FailException
      */
-    UserBO getUser(Integer id) throws FailException;
+    UserModel getUser(Integer id) throws FailException;
+
+    /**
+     * 错误的sql
+     */
+    void sqlError();
 }

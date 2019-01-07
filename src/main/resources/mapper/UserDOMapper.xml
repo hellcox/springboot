@@ -105,4 +105,8 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+    <update id="sqlError" parameterType="com.main.dao.dataobject.UserDO">
+    update user_info set user_name = 'username' where id = 1
+    </update>
+
 </mapper>

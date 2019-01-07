@@ -14,4 +14,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(UserDO record);
 
     int updateByPrimaryKey(UserDO record);
+
+    void sqlError();
 }

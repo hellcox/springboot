@@ -15,7 +15,7 @@ public class UserAccountDO {
 
     private String loginName;
 
-    private Date addDate;
+    private Date gmtCreate;
 
     @Override
     public String toString() {
@@ -26,7 +26,7 @@ public class UserAccountDO {
                 ", mobile='" + mobile + '\'' +
                 ", email='" + email + '\'' +
                 ", loginName='" + loginName + '\'' +
-                ", addDate=" + addDate +
+                ", gmtCreate=" + gmtCreate +
                 '}';
     }
 
@@ -78,11 +78,11 @@ public class UserAccountDO {
         this.loginName = loginName;
     }
 
-    public Date getAddDate() {
-        return addDate;
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setAddDate(Date addDate) {
-        this.addDate = addDate;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 }

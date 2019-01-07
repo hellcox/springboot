@@ -4,7 +4,7 @@ package com.main.error;
  * @author long
  * @date 2018/12/14 15:57
  */
-public enum EmMainError implements CommonError {
+public enum EmError implements CommonError {
 
     /**
      * 成功
@@ -14,7 +14,7 @@ public enum EmMainError implements CommonError {
     /**
      * 失败
      */
-    FAIL(-1, "fail msg"),
+    FAIL(-1, "fail"),
 
     /**
      * 未知错误
@@ -25,7 +25,7 @@ public enum EmMainError implements CommonError {
     private int errCode;
     private String errMsg;
 
-    private EmMainError(int errCode, String errMsg) {
+    private EmError(int errCode, String errMsg) {
         this.errCode = errCode;
         this.errMsg = errMsg;
     }

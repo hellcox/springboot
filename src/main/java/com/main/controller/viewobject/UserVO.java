@@ -1,9 +1,13 @@
-package com.main.dao.dataobject;
+package com.main.controller.viewobject;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
-public class UserDO {
+/**
+ * @author long
+ * @date 2018/12/21 13:36
+ */
+public class UserVO {
+
     private Integer id;
 
     private String name;
@@ -14,7 +18,37 @@ public class UserDO {
 
     private BigDecimal money;
 
-    private Date gmtCreate;
+    private String gmtCreate;
+
+    private String mobile;
+
+    private String email;
+
+    private String loginName;
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
 
     public Integer getId() {
         return id;
@@ -56,23 +90,26 @@ public class UserDO {
         this.money = money;
     }
 
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
     @Override
     public String toString() {
-        return "UserDO{" +
+        return "UserVO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", nickName='" + nickName + '\'' +
                 ", sex=" + sex +
                 ", money=" + money +
-                ", gmtCreate=" + gmtCreate +
+                ", gmtCreate='" + gmtCreate + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", email='" + email + '\'' +
+                ", loginName='" + loginName + '\'' +
                 '}';
+    }
+
+    public String getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(String gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 }
