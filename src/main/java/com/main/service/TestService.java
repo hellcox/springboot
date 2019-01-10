@@ -34,4 +34,9 @@ public interface TestService {
      * 错误的sql
      */
     void sqlError();
+
+    /**
+     * 插入大量数据
+     */
+    void insertMore();
 }

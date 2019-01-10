@@ -6,16 +6,22 @@ import com.main.error.EmError;
 import com.main.error.FailException;
 import com.main.service.TestService;
 import com.main.service.model.UserModel;
+import com.main.util.DateUtil;
+import com.main.util.RedisUtil;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import sun.applet.Main;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author long
@@ -34,12 +40,57 @@ public class TestController {
     @Autowired
     private TestService testService;
 
+    @Resource
+    private RedisUtil redisUtil;
+
     public static void main(String[] args) {
         System.out.println(1);
     }
 
+    @RequestMapping("/redis")
+    public MainReturn redis() {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("key", "value");
+
+        redisUtil.set("key", "value");
+        redisUtil.set("user", new UserModel());
+        redisUtil.set("map", map);
+        Object value = redisUtil.get("key");
+        Map omap = (Map) redisUtil.get("map");
+        System.out.println(omap);
+
+        UserModel userModel = (UserModel) redisUtil.get("user");
+        System.out.println(userModel);
+
+        return MainReturn.success(value);
+    }
+
+    @RequestMapping("/date")
+    public MainReturn date() {
+        String dateString = "2018-01-01 00:00:00";
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("date", DateUtil.getDateString());
+        data.put("timestamp", DateUtil.getTimestamp());
+        data.put("dateString", dateString);
+
+        dateString = "2018112203303";
+        data.put(dateString, DateUtil.strToTimestamp(dateString));
+        dateString = "2018112203304";
+        data.put(dateString, DateUtil.dateStringFormat(dateString));
+
+        return MainReturn.success(data, "日期工具类");
+    }
+
+    @RequestMapping("/insert")
+    public MainReturn insert() {
+        testService.insertMore();
+        return MainReturn.success();
+    }
+
     @RequestMapping("/sqlerror")
-    public MainReturn sqlError(){
+    public MainReturn sqlError() {
         testService.sqlError();
         return MainReturn.success();
     }
@@ -111,11 +162,11 @@ public class TestController {
         //控制台输出 和 日志入库
         log.debug(1);
         log.info(2);
-        log.error(3);
+        log.error("error 日志配置为直接入库");
         return MainReturn.success("LOG4J 日志");
     }
 
-    private UserVO convertFromModel(UserModel userModel){
+    private UserVO convertFromModel(UserModel userModel) {
         if (userModel == null) {
             return null;
         }

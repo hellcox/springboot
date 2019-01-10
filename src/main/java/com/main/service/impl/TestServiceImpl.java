@@ -1,7 +1,9 @@
 package com.main.service.impl;
 
+import com.main.dao.ContentMapper;
 import com.main.dao.UserAccountMapper;
 import com.main.dao.UserMapper;
+import com.main.dao.dataobject.ContentDO;
 import com.main.dao.dataobject.UserAccountDO;
 import com.main.dao.dataobject.UserDO;
 import com.main.error.EmError;
@@ -24,6 +26,8 @@ public class TestServiceImpl implements TestService {
     private UserMapper userMapper;
     @Autowired
     private UserAccountMapper userAccountMapper;
+    @Autowired
+    private ContentMapper contentMapper;
 
     @Override
     public boolean test() {
@@ -68,6 +72,27 @@ public class TestServiceImpl implements TestService {
     @Override
     public void sqlError() {
         userMapper.sqlError();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void insertMore() {
+        // 加上事物的耗时比没加少5倍
+
+        long start = System.currentTimeMillis();
+        System.out.println(start);
+
+        ContentDO contentDO = new ContentDO();
+        for (int i = 1; i <= 100000; i++) {
+            contentDO.setA(i);
+            contentDO.setB("bbbbbbbbbbbbbbb");
+            contentDO.setC("ccccccccccccccc");
+            contentMapper.insertSelective(contentDO);
+        }
+
+        long end = System.currentTimeMillis();
+        System.out.println(end);
+        System.out.println((end - start) / 1000);
     }
 
     private UserModel convertFromDO(UserDO userDO, UserAccountDO userAccountDO) {

@@ -50,7 +50,12 @@
                <!--enableCountByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false">-->
         <!--</table>-->
 
-        <table tableName="user_account" domainObjectName="UserAccountDO" mapperName="UserAccountMapper"
+        <!--<table tableName="user_account" domainObjectName="UserAccountDO" mapperName="UserAccountMapper"-->
+               <!--enableSelectByExample="false" enableDeleteByExample="false"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+        <table tableName="content" domainObjectName="ContentDO" mapperName="ContentMapper"
                enableSelectByExample="false" enableDeleteByExample="false"
                enableCountByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false">
         </table>
